@@ -118,7 +118,6 @@ def create_anon_haberman():
 
 
 
-
 def output_true_results(query, condition):
     query = "SELECT " + query + " FROM haberman WHERE " + condition
 
