@@ -79,7 +79,7 @@ print(f"survival = {survival}")
 from writeToFiles import update_contents_in_files
 
 col_names = ['Age', 'Year of operation', 'Positive Aux nodes']
-path = f"../diff privacy"
+path = f"../diff_privacy"
 depth_start = 2
 depth_end = 12
 step = 2
@@ -119,20 +119,20 @@ for i in range(len(acc)):
 	if acc[i] < avg and i < alt_depth_start * 2:
 		if not os.path.isfile(f"../Privacy_concerned/haberman{i+1}.csv"):
 
-			shutil.copyfile(f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv", f"../Privacy_concerned/haberman{i+1}.csv")
+			shutil.copyfile(f"../diff_privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv", f"../Privacy_concerned/haberman{i+1}.csv")
 			if i == acc.index(best_priv):
-				shutil.copyfile(f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
+				shutil.copyfile(f"../diff_privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
 				                f"../Privacy_concerned/haberman{i + 1}_best.csv")
 
 	elif acc[i] >= avg and i < alt_depth_start * 2:
 		if not os.path.isfile(f"../Privacy_concerned/haberman{i+1}.csv"):
 			shutil.copyfile(
-		f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv",
+		f"../diff_privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv",
 		f"../IndustrialVal_concerned/haberman{i+1}.csv")
 
 			if i == acc.index(best_ind):
 				shutil.copyfile(
-					f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
+					f"../diff_privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
 					f"../IndustrialVal_concerned/haberman{i + 1}_best.csv")
 
 	if  i >= alt_depth_start * 2:
