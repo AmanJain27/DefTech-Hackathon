@@ -16,7 +16,7 @@ def diffprivacy(epsilons, dp, X_train, y_train, X_test, y_test, y_arr, y, x):
 		survival_status_for_each_depth = []
 		for e in epsilons:
 
-			decision = dp.DecisionTreeClassifier(max_depth=d, e=e, s=1, min_samples_leaf=1)
+			decision = dp.DecisionTreeClassifier(max_depth=d, e=e, s=1, min_samples_leaf=5)
 			decision.fit(X_train, y_train)
 			a_n = decision.score(X_test, y_test)
 			survival_for_each_epsilon =  []

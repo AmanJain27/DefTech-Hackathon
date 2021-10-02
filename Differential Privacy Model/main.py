@@ -7,7 +7,7 @@ from diffpriv import diffprivacy
 
 
 # import haberman dataset
-filename = '..\\haberman.csv'
+filename = '../haberman.csv'
 names= ['Age', 'Year Of Operation 19', 'No. of Positive axillary nodes', 'Survival Status']
 hb = pd.read_csv(filename,names=names, header=None)
 
@@ -44,7 +44,7 @@ decision = None
 
 
 # anonymize the dataset before writing a differentially private dataset
-filename_generalized = "..\\2haberman.csv"
+filename_generalized = "../2haberman.csv"
 
 hb_g = pd.read_csv(filename_generalized)
 #print(hb_g)
@@ -75,14 +75,11 @@ cross_val_average_and_plot(hb, epsilons, dp, y, x, y_arr,color, color_l, plt)
 survival = diffprivacy(epsilons, dp, X_train, y_train, X_test, y_test, y_arr, y, x)[1]
 print(f"survival = {survival}")
 
-
-
-
 # write the datasets in the files
 from writeToFiles import update_contents_in_files
 
 col_names = ['Age', 'Year of operation', 'Positive Aux nodes']
-path = f"..\\diff privacy"
+path = f"../diff privacy"
 depth_start = 2
 depth_end = 12
 step = 2
@@ -107,36 +104,36 @@ alt_depth_end = depth_end
 
 import shutil
 
-if os.path.isdir(f"..\\Privacy_concerned"):
-	shutil.rmtree(f'..\\Privacy_concerned')
+if os.path.isdir(f"../Privacy_concerned"):
+	shutil.rmtree(f'../Privacy_concerned')
 
-if os.path.isdir(f"..\\IndustrialVal_concerned"):
-	shutil.rmtree(f'..\\IndustrialVal_concerned')
+if os.path.isdir(f"../IndustrialVal_concerned"):
+	shutil.rmtree(f'../IndustrialVal_concerned')
 
-os.mkdir(f"..\\Privacy_concerned")
-os.mkdir(f"..\\IndustrialVal_concerned")
+os.mkdir(f"../Privacy_concerned")
+os.mkdir(f"../IndustrialVal_concerned")
 
 
 
 for i in range(len(acc)):
 	if acc[i] < avg and i < alt_depth_start * 2:
-		if not os.path.isfile(f"..\\Privacy_concerned\\haberman{i+1}.csv"):
+		if not os.path.isfile(f"../Privacy_concerned/haberman{i+1}.csv"):
 
-			shutil.copyfile(f"..\\diff privacy\\Depth={alt_depth_start}\\haberman_generalized{(i%4) + 1}.csv", f"..\\Privacy_concerned\\haberman{i+1}.csv")
+			shutil.copyfile(f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv", f"../Privacy_concerned/haberman{i+1}.csv")
 			if i == acc.index(best_priv):
-				shutil.copyfile(f"..\\diff privacy\\Depth={alt_depth_start}\\haberman_generalized{(i % 4) + 1}.csv",
-				                f"..\\Privacy_concerned\\haberman{i + 1}_best.csv")
+				shutil.copyfile(f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
+				                f"../Privacy_concerned/haberman{i + 1}_best.csv")
 
 	elif acc[i] >= avg and i < alt_depth_start * 2:
-		if not os.path.isfile(f"..\\Privacy_concerned\\haberman{i+1}.csv"):
+		if not os.path.isfile(f"../Privacy_concerned/haberman{i+1}.csv"):
 			shutil.copyfile(
-		f"..\\diff privacy\\Depth={alt_depth_start}\\haberman_generalized{(i%4) + 1}.csv",
-		f"..\\IndustrialVal_concerned\\haberman{i+1}.csv")
+		f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i%4) + 1}.csv",
+		f"../IndustrialVal_concerned/haberman{i+1}.csv")
 
 			if i == acc.index(best_ind):
 				shutil.copyfile(
-					f"..\\diff privacy\\Depth={alt_depth_start}\\haberman_generalized{(i % 4) + 1}.csv",
-					f"..\\IndustrialVal_concerned\\haberman{i + 1}_best.csv")
+					f"../diff privacy/Depth={alt_depth_start}/haberman_generalized{(i % 4) + 1}.csv",
+					f"../IndustrialVal_concerned/haberman{i + 1}_best.csv")
 
 	if  i >= alt_depth_start * 2:
 		alt_depth_start += 2

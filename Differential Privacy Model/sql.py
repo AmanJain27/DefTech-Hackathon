@@ -5,7 +5,7 @@ import glob
 import pandas as pd
 
 def create_haberman():
-    conn = sqlite3.connect("..\\confidential_databases\\example.db")
+    conn = sqlite3.connect("../confidential_databases/example.db")
     c = conn.cursor()
     c.execute("DROP TABLE IF EXISTS haberman")
 
@@ -14,7 +14,7 @@ def create_haberman():
 
     import csv
     row_t = []
-    with open('..\\haberman.csv', newline='') as f:
+    with open('../haberman.csv', newline='') as f:
         reader = csv.reader(f)
 
         for row in reader:
@@ -43,9 +43,9 @@ create_haberman()
 
 def create_anon_haberman():
     import csv
-    conn = sqlite3.connect("..\\confidential_databases\\example2.db")
+    conn = sqlite3.connect("../confidential_databases/example2.db")
     c = conn.cursor()
-    path = "..\\diff privacy\\"
+    path = "../diff privacy/"
 
     dirs = [name for name in os.listdir(path)]
     #print(dirs)
@@ -83,18 +83,18 @@ def create_anon_haberman():
 
 
 
-            hb = pd.read_csv("..\\haberman.csv", header=None)
+            hb = pd.read_csv("../haberman.csv", header=None)
 
             hb_s = hb.iloc[:, :-1]
 
-            hb_r = pd.read_csv(path + dirs[i] + "\\"+ j, skiprows=0)
+            hb_r = pd.read_csv(path + dirs[i] + "/"+ j, skiprows=0)
 
             hb_r_q = hb_r.iloc[:, -1]
 
             pd_out = hb_s.assign(survival = list(hb_r_q))
 
-            pd_out.to_csv(f"..\\sql_execution_files\\haberman{k}.csv", index=False)
-            with open(f"..\\sql_execution_files\\haberman{k}.csv") as f:
+            pd_out.to_csv(f"../sql_execution_files/haberman{k}.csv", index=False)
+            with open(f"../sql_execution_files/haberman{k}.csv") as f:
                 reader = csv.reader(f)
                 next(reader, None)
                 for row in reader:
@@ -121,7 +121,7 @@ def create_anon_haberman():
 def output_true_results(query, condition):
     query = "SELECT " + query + " FROM haberman WHERE " + condition
 
-    conn = sqlite3.connect("..\\confidential_databases\\example.db")
+    conn = sqlite3.connect("../confidential_databases/example.db")
     c = conn.cursor()
     try:
         c.execute(query)
@@ -141,7 +141,7 @@ def output_randomized_results(query, condition):
     randomized_res = []
 
 
-    conn = sqlite3.connect("..\\confidential_databases\\example2.db")
+    conn = sqlite3.connect("../confidential_databases/example2.db")
     c = conn.cursor()
     for i in range(k):
         query_real = "SELECT " + query + f" FROM haberman{i+1} WHERE " + condition + ";"
