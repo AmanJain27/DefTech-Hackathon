@@ -1,0 +1,6 @@
+FOR EPSILON = 0.25
+splitter
+best
+<sklearn.tree._splitter.BestSplitter object at 0x555d36160f20>
+aslkf node samples afasdk
+[]

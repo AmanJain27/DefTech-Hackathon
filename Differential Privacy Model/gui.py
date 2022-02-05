@@ -34,7 +34,7 @@ def frontend():
 		q_true_results = output_true_results(entry_q.get(), entry_c.get())
 		q_results = output_randomized_results(entry_q.get(), entry_c.get())
 		if "Error" not in q_true_results:
-			messagebox.showinfo("True", message=q_true_results)
+			messagebox.showinfo("True Ouptut", message=q_true_results)
 
 		else:
 			messagebox.showerror("Error", message=q_true_results)

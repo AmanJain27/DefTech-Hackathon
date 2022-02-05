@@ -45,7 +45,7 @@ def create_anon_haberman():
     import csv
     conn = sqlite3.connect("../confidential_databases/example2.db")
     c = conn.cursor()
-    path = "../diff privacy/"
+    path = "../diff_privacy/"
 
     dirs = [name for name in os.listdir(path)]
     #print(dirs)
@@ -134,6 +134,7 @@ def output_true_results(query, condition):
 def output_randomized_results(query, condition):
 
     true_res = output_true_results(query, condition)
+    print("true results")
     print(true_res)
     k = create_anon_haberman()
 
@@ -147,15 +148,20 @@ def output_randomized_results(query, condition):
         query_real = "SELECT " + query + f" FROM haberman{i+1} WHERE " + condition + ";"
         try:
             c.execute(query_real)
-            randomized_res.append(c.fetchall()[0][0])
+            print("Answer")
+            ans = c.fetchall()
+            print(ans)
+            randomized_res.append(ans[0][0])
         except Exception:
             return "Query Error"
+    print("Randomized results")
     print(randomized_res)
     unsigned_noise_induced = [abs(randomized_res[i] - true_res[0][0]) for i in range(len(randomized_res))]
     minimum_noise = min(unsigned_noise_induced)
     best_noisy_result_idx = unsigned_noise_induced.index(minimum_noise)
     best_noisy_res = randomized_res[best_noisy_result_idx]
         #print(randomized_res[best_noisy_result_idx])
+    print("Best noisy results", best_noisy_res)
     return str(best_noisy_res)
 
 
@@ -166,4 +172,4 @@ def output_randomized_results(query, condition):
 
 
 
-#output_randomized_results("COUNT(Survival)", "Survival = 1")
+output_randomized_results("COUNT(Survival)", "Age < 34 and survival=1")
